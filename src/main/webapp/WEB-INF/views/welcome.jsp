@@ -26,6 +26,30 @@
         </c:if>
     </div>
 
+    <c:if test="${!empty listBooks}">
+        <table class="tg">
+            <tr>
+                <th width="80">ID</th>
+                <th width="120">Title</th>
+                <th width="120">Author</th>
+                <th width="120">Price</th>
+                <th width="60">Edit</th>
+                <th width="60">Delete</th>
+            </tr>
+            <c:forEach items="${listBooks}" var="book">
+                <tr>
+                    <td>${book.id}</td>
+                    <td><a href="/bookdata/${book.id}" target="_blank">${book.bookTitle}</a></td>
+                    <td>${book.bookAuthor}</td>
+                    <td>${book.price/100}${book.price%100}</td>
+                    <td><a href="<c:url value='/edit/${book.id}'/>">Edit</a></td>
+                    <td><a href="<c:url value='/remove/${book.id}'/>">Delete</a></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 

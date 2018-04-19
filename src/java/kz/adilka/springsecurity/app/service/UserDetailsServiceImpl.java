@@ -15,7 +15,7 @@ import java.util.Set;
 
 
 /**
- * Implementation of {@link org.springframework.security.core.userdetails.UserDetailsService} interface
+ * Implementation of {@link UserService} interface
  *
  * @author Adilka Tokushev
  * @version 1.0

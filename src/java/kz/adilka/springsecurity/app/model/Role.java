@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Simple Java Bean object that represents role of the {@link user}.
+ * Simple Java Bean object that represents role of the {@link User}.
  *
  * @author Adilka
  * @version 1.0
