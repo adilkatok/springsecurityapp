@@ -13,6 +13,10 @@
 
     <import resource="mvc-dispatcher-servlet.xml"/>
 
+    <import resource="views.xml"/>
+
+
+
     <context:component-scan base-package="kz.adilka.springsecurity.*"/>
 
     <context:property-placeholder location="classpath:database.properties"/>

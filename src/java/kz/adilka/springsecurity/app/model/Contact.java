@@ -1,9 +1,12 @@
 package kz.adilka.springsecurity.app.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+
 import javax.persistence.*;
 
 /**
- * Simpla JavaBean object to represent Contacts
+ * Simple JavaBean object to represent Contacts
  *
  * @author Adilka Tokushev
  * @version 1.0
@@ -14,6 +17,7 @@ import javax.persistence.*;
 public class Contact {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

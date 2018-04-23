@@ -18,9 +18,9 @@
           destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url"
-                  value="jdbc:mysql://localhost:3306/BOOKMANAGER"/>
+                  value="jdbc:mysql://localhost:3306/spring_security_app"/>
         <property name="username" value="root"/>
-        <property name="password" value="ВАШ ПАРОЛЬ"/>
+        <property name="password" value="12345"/>
     </bean>
 
     <!-- Hibernate 4 SessionFactory Bean definition -->
@@ -36,12 +36,13 @@
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
                 </prop>
+                <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
                 <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
     </bean>
 
-    <!--Dao and BookService beans-->
+    <!--contactDao and ContactService beans-->
     <bean id="contactDao" class="kz.adilka.springsecurity.app.dao.ContactDaoImpl">
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
     </bean>
@@ -56,6 +57,19 @@
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
+    <!--for sending data in pdf-->
+    <bean id="viewResolver1" class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="order" value="1"/>
+        <property name="location" value="/WEB-INF/views.xml"/>
+    </bean>
+
+    <bean id="viewResolver2"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="order" value="2"/>
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
     </bean>
 
     <mvc:default-servlet-handler/>

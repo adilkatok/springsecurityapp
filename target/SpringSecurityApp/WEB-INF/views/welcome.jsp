@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -22,33 +23,125 @@
             <form id="logoutForm" method="post" action="${contextPath}/logout">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </form>
-            <h2>Welcome ${pageContext.request.userPrincipal.name}  |  <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+            <h6>Welcome ${pageContext.request.userPrincipal.name}  |  <a onclick="document.forms['logoutForm'].submit()">Logout</a></h6>
         </c:if>
-    </div>
 
-    <c:if test="${!empty listBooks}">
-        <table class="tg">
-            <tr>
-                <th width="80">ID</th>
-                <th width="120">Title</th>
-                <th width="120">Author</th>
-                <th width="120">Price</th>
-                <th width="60">Edit</th>
-                <th width="60">Delete</th>
-            </tr>
-            <c:forEach items="${listBooks}" var="book">
+        <c:if test="${!empty listContacts}">
+            <table class="tg">
                 <tr>
-                    <td>${book.id}</td>
-                    <td><a href="/bookdata/${book.id}" target="_blank">${book.bookTitle}</a></td>
-                    <td>${book.bookAuthor}</td>
-                    <td>${book.price/100}${book.price%100}</td>
-                    <td><a href="<c:url value='/edit/${book.id}'/>">Edit</a></td>
-                    <td><a href="<c:url value='/remove/${book.id}'/>">Delete</a></td>
+                    <th width="80">ID</th>
+                    <th width="120">Name</th>
+                    <th width="120">City</th>
+                    <th width="120">Tel.NO</th>
+                    <th width="120">e-mail</th>
+                    <th width="60">Edit</th>
+                    <th width="60">Delete</th>
                 </tr>
-            </c:forEach>
-        </table>
-    </c:if>
+                <c:forEach items="${listContacts}" var="contact">
+                    <tr>
+                        <td>${contact.id}</td>
+                        <td><a href="/contactData/${contact.id}" target="_blank">${contact.contactName}</a></td>
+                        <td>${contact.contactCity}</td>
+                        <td>${contact.contactPhone}</td>
+                        <td>${contact.contactEmail}</td>
+                        <td><a href="<c:url value='/edit/${contact.id}'/>">Edit</a></td>
+                        <td><a href="<c:url value='/remove/${contact.id}'/>">Delete</a></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
 
+        <h5>Add contact</h5>
+
+        <c:url var="addAction" value="/welcome/add"/>
+
+        <form:form action="${addAction}" commandName="contact">
+            <table>
+                <c:if test="${!empty contact.contactName}">
+                    <tr>
+                        <td>
+                            <form:label path="id">
+                                <spring:message text="ID"/>
+                            </form:label>
+                        </td>
+                        <td>
+                            <form:input path="id" readonly="true" size="8" disabled="true"/>
+                            <form:hidden path="id"/>
+                        </td>
+                    </tr>
+                </c:if>
+                <tr>
+                    <td>
+                        <form:label path="contactName">
+                            <spring:message text="Name"/>
+                        </form:label>
+                    </td>
+                    <td>
+                        <form:input path="contactName"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <form:label path="contactCity">
+                            <spring:message text="City"/>
+                        </form:label>
+                    </td>
+                    <td>
+                        <form:input path="contactCity"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <form:label path="contactPhone">
+                            <spring:message text="NO"/>
+                        </form:label>
+                    </td>
+                    <td>
+                        <form:input path="contactPhone"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <form:label path="contactEmail">
+                            <spring:message text="Mail"/>
+                        </form:label>
+                    </td>
+                    <td>
+                        <form:input path="contactEmail"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <c:if test="${!empty contact.contactName}">
+                            <input type="submit"
+                                   value="<spring:message text="Edit Contact"/>"/>
+                        </c:if>
+                        <c:if test="${empty contact.contactName}">
+                            <input type="submit"
+                                   value="<spring:message text="Add Contact"/>"/>
+                        </c:if>
+                    </td>
+                </tr>
+            </table>
+
+        </form:form>
+
+        <br>
+        <div class="align-content-center">
+            <a href="/downloadExcel">Download Data in excel.</a>
+            <a href="/downloadDoc">Download Data in doc.</a>
+        </div>
+
+        <br>
+        <br>
+        <div>
+            <center>City Search</center>
+            <%--<form:input path="contactCityForSearch"/>--%>
+        </div>
+
+
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
